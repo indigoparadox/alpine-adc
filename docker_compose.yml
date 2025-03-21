@@ -1,0 +1,38 @@
+services:
+  smbadp:
+    build: https://codeberg.org/indigoparadox/alpine-adc.git
+    container_name: smbadp
+    hostname: smbadp
+    # TODO: Is this necessary still?
+    privileged: true
+    networks:
+      samba:
+        ipv4_address: 192.168.0.35
+    dns_search:
+      - INTERFINITYDYNAMICS.INFO
+    dns:
+      - 192.168.0.30
+    extra_hosts:
+      - maindc maindc.interfinitydynamics.info:192.168.0.30
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+      - /mnt/fastsrv/smbadp/config/krb5.conf:/etc/krb5.conf:ro
+      - /mnt/fastsrv/smbadp/data:/var/lib/samba
+      - /mnt/fastsrv/smbadp/config/samba:/etc/samba
+      # For holding kerberos tickets.
+      - /mnt/fastsrv/smbadp/tmp:/tmp
+    environment:
+      - TZ=America/New_York
+
+networks:
+  samba:
+    driver: macvlan
+    driver_opts:
+      parent: eth0
+    ipam:
+      config:
+        - subnet: "192.168.0.0/24"
+          gateway: "192.168.0.1"
+          ip_range: "192.168.0.35/32"
+
