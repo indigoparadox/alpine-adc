@@ -1,7 +1,7 @@
 
 # Alpine Active Directory Controller
 
-This is an *extremely* simple attempt at an Active Directory server container. It installs the minimal packages and:
+This is an *extremely* simple attempt at an Active Directory domain controller container. It installs the minimal packages and:
 
 * If /etc/samba/smb.conf is present, attempts to start the DC.
 * If /etc/samba/smb.conf is *not* present, sleeps indefinitely for setup.
