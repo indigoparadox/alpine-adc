@@ -17,11 +17,13 @@ services:
     volumes:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
-      - /mnt/fastsrv/smbadp/config/krb5.conf:/etc/krb5.conf:ro
-      - /mnt/fastsrv/smbadp/data:/var/lib/samba
-      - /mnt/fastsrv/smbadp/config/samba:/etc/samba
+      - /mnt/smbadp/config/krb5.conf:/etc/krb5.conf:ro
+      - /mnt/smbadp/data:/var/lib/samba
+      - /mnt/smbadp/config/samba:/etc/samba
+      # Change the domain to match your own. See "Group Policies" in the README.
+      - /mnt/smbadp/sysvol:/var/lib/samba/sysvol/interfinitydynamics.info
       # For holding kerberos tickets.
-      - /mnt/fastsrv/smbadp/tmp:/tmp
+      - /mnt/smbadp/tmp:/tmp
     environment:
       - TZ=America/New_York
 
