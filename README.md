@@ -45,6 +45,12 @@ You will need to ensure `domain` is mounted in the container at the correct moun
 
 If this is all done properly, you should see your GPO files under `\\smbadp\sysvol\<your domain name>`.
 
+## DNS
+
+### DHCP Option Matching
+
+If your DHCP server can match options, you may be interested in checking to see if it is feasible to match on option 60 (0x43), the Vendor ID, for the string "MSFT" in DHCP requests from clients. This way, you can serve the IP addresses of your domain controllers only to Windows clients.
+
 ## Samba Version and Support
 
 This uses the "latest" version of Alpine Linux. As of this writing, this installs Samba 4.20. This should support up to Windows Server 2019's schema, according to Samba's [AD Schema Version Support](https://wiki.samba.org/index.php/AD_Schema_Version_Support) page.
