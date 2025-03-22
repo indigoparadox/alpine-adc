@@ -1,5 +1,5 @@
 
-# Alpine Active Directory Controller
+# ![Alpine Directory Logo](alpine-dc.png) Alpine Active Directory Controller
 
 This is an *extremely* simple attempt at an Active Directory domain controller container. It installs the minimal packages and:
 
