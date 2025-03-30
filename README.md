@@ -14,6 +14,8 @@ The included `docker_compose.yml` gives an example of how to bring up this conta
 
 * It attempts to bridge to the `eth0` network interface. This should be changed if this is not the network interface of the Windows network!
 
+* The included krb5.conf should be modified to point to your network's `maindc` and then placed in the config directory and mounted into the container as outlined in the `docker_compose.yml`.
+
 ## Setup
 
 If no config is present, the container sleeps and waits to be setup. This can be done with `docker exec -it <container_name> sh`. From there, you can follow the Samba wiki instructions:
