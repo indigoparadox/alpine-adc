@@ -7,6 +7,7 @@ services:
     privileged: true
     networks:
       samba:
+        # Change this to match the samba network, below.
         ipv4_address: 192.168.0.35
     dns_search:
       - INTERFINITYDYNAMICS.INFO
@@ -17,22 +18,27 @@ services:
     volumes:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
-      - /mnt/smbadp/config/krb5.conf:/etc/krb5.conf:ro
       - /mnt/smbadp/data:/var/lib/samba
       - /mnt/smbadp/config/samba:/etc/samba
       # Change the domain to match your own. See "Group Policies" in the README.
       - /mnt/smbadp/sysvol:/var/lib/samba/sysvol/interfinitydynamics.info
-      # For holding kerberos tickets.
-      - /mnt/smbadp/tmp:/tmp
+      # This is useful if joining an existing domain.
+      # If you wish to use this, copy etc/krb5.conf from this repo to
+      # /mnt/smbadp/config, first, and modify it accordingly.
+      #- /mnt/smbadp/config/krb5.conf:/etc/krb5.conf:ro
+      # For holding kerberos tickets (if joining an existing domain).
+      #- /mnt/smbadp/tmp:/tmp
     environment:
       - TZ=America/New_York
 
 networks:
   samba:
+    # For bridging directly to the external network as a new host.
     driver: macvlan
     driver_opts:
       parent: eth0
     ipam:
+      # If using macvlan, this should match your local network subnet.
       config:
         - subnet: "192.168.0.0/24"
           gateway: "192.168.0.1"
